@@ -54,11 +54,12 @@ body {
 .options {
   text-align: center;
   padding: 10px;
+  position: relative;
 }
 
 button {
   padding: 8px 16px;
-  margin: 5px;
+  margin: 6px;
   border-radius: 20px;
   border: none;
   font-size: 14px;
@@ -72,6 +73,12 @@ button {
 
 .no {
   background: #ccc;
+  position: absolute;
+}
+
+.music {
+  background: #ff5a79;
+  color: white;
 }
 
 .heart {
@@ -99,23 +106,26 @@ button {
     </div>
   </div>
 
-  <div class="options">
+  <div class="options" id="optionsBox">
     <button class="yes" id="yesBtn" onclick="yesClicked()">Yes</button>
-    <button class="no" onclick="noClicked()">No</button>
+    <button class="no" id="noBtn">No</button>
+    <br>
+    <button class="music" onclick="playMusic()">Play Music 🎵</button>
   </div>
 </div>
 
-<!-- iPhone-safe click sound -->
-<audio id="loveSound" preload="auto">
-  <source src="https://www.soundjay.com/buttons/sounds/button-09.mp3" type="audio/mpeg">
+<!-- Soft romantic piano (Android friendly) -->
+<audio id="pianoMusic" preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_4b7c9a7a8e.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-let yesAlreadyClicked = false;
+let yesClickedOnce = false;
 
+// YES button
 function yesClicked() {
-  if (yesAlreadyClicked) return;
-  yesAlreadyClicked = true;
+  if (yesClickedOnce) return;
+  yesClickedOnce = true;
 
   const chat = document.getElementById("chatBox");
   const yesBtn = document.getElementById("yesBtn");
@@ -128,17 +138,57 @@ function yesClicked() {
   yesBtn.disabled = true;
   yesBtn.style.opacity = "0.6";
 
-  const sound = document.getElementById("loveSound");
-  sound.currentTime = 0;
-  sound.play().catch(() => {});
-
   createHearts();
 }
 
-function noClicked() {
-  alert("Nice try 😜 but this option is disabled forever");
+// 😜 NO button runs away
+const noBtn = document.getElementById("noBtn");
+const optionsBox = document.getElementById("optionsBox");
+
+noBtn.addEventListener("mouseenter", moveNoButton);
+noBtn.addEventListener("touchstart", moveNoButton);
+
+function moveNoButton() {
+  const boxWidth = optionsBox.offsetWidth - noBtn.offsetWidth;
+  const boxHeight = optionsBox.offsetHeight - noBtn.offsetHeight;
+
+  const x = Math.random() * boxWidth;
+  const y = Math.random() * boxHeight;
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
 }
 
+// 🎵 Play Music with fade-in + auto stop
+function playMusic() {
+  const music = document.getElementById("pianoMusic");
+
+  music.currentTime = 0;
+  music.volume = 0;
+  music.play().catch(() => {
+    alert("Tap Play Music again 🎵");
+    return;
+  });
+
+  // Fade in
+  let vol = 0;
+  const fade = setInterval(() => {
+    if (vol < 0.7) {
+      vol += 0.05;
+      music.volume = vol;
+    } else {
+      clearInterval(fade);
+    }
+  }, 300);
+
+  // Stop after 30 sec
+  setTimeout(() => {
+    music.pause();
+    music.currentTime = 0;
+  }, 30000);
+}
+
+// 💖 Floating hearts
 function createHearts() {
   const container = document.getElementById("container");
 
@@ -156,4 +206,3 @@ function createHearts() {
 
 </body>
 </html>
-
