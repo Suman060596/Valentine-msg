@@ -1,156 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Valentine Chat</title>
+<meta charset="UTF-8">
+<title>Valentine Chat</title>
 
-  <style>
-    body {
-      background-color: #e5ddd5;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      padding-top: 40px;
-      overflow: hidden;
-    }
+<style>
+body {
+  background-color: #e5ddd5;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
 
-    .chat-container {
-      width: 320px;
-      background-color: #f0f0f0;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      position: relative;
-    }
+.chat-container {
+  width: 320px;
+  background: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  overflow: hidden;
+  position: relative;
+}
 
-    .header {
-      background-color: #075e54;
-      color: white;
-      padding: 10px;
-      font-weight: bold;
-    }
+.header {
+  background: #075e54;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+}
 
-    .chat {
-      padding: 10px;
-      min-height: 200px;
-    }
+.chat {
+  padding: 10px;
+  min-height: 200px;
+}
 
-    .message {
-      max-width: 80%;
-      padding: 8px 12px;
-      border-radius: 7px;
-      margin-bottom: 8px;
-      font-size: 14px;
-      line-height: 1.4;
-    }
+.message {
+  max-width: 80%;
+  padding: 8px 12px;
+  border-radius: 7px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
 
-    .received {
-      background-color: white;
-    }
+.received {
+  background: white;
+}
 
-    .sent {
-      background-color: #dcf8c6;
-      margin-left: auto;
-    }
+.sent {
+  background: #dcf8c6;
+  margin-left: auto;
+}
 
-    .options {
-      text-align: center;
-      padding: 10px;
-    }
+.options {
+  text-align: center;
+  padding: 10px;
+}
 
-    button {
-      padding: 8px 15px;
-      margin: 5px;
-      border-radius: 20px;
-      border: none;
-      font-size: 14px;
-      cursor: pointer;
-    }
+button {
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 20px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
 
-    .yes {
-      background-color: #25d366;
-      color: white;
-    }
+.yes {
+  background: #25d366;
+  color: white;
+}
 
-    .no {
-      background-color: #ccc;
-      color: #333;
-    }
+.no {
+  background: #ccc;
+}
+.heart {
+  position: absolute;
+  bottom: 0;
+  font-size: 22px;
+  animation: floatUp 4s linear forwards;
+}
 
-    /* Floating hearts */
-    .heart {
-      position: absolute;
-      bottom: 0;
-      font-size: 22px;
-      animation: floatUp 4s linear forwards;
-    }
-
-    @keyframes floatUp {
-      0% { opacity: 1; transform: translateY(0); }
-      100% { opacity: 0; transform: translateY(-400px); }
-    }
-  </style>
+@keyframes floatUp {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-350px); }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="chat-container" id="container">
-    <div class="header">My Love ❤️</div>
+<div class="chat-container" id="container">
+  <div class="header">My Love ❤️</div>
 
-    <div class="chat" id="chatBox">
-      <div class="message received">
-        Will you be my Valentine? 💌
-      </div>
-    </div>
-
-    <div class="options">
-      <button class="yes" onclick="yesClicked()">Yes</button>
-      <button class="no" onclick="noClicked()">No</button>
+  <div class="chat" id="chatBox">
+    <div class="message received">
+      Will you be my Valentine? 💌
     </div>
   </div>
 
-  <!-- Valentine Song -->
-  <audio id="loveSong">
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-  </audio>
+  <div class="options">
+    <button class="yes" onclick="yesClicked()">Yes</button>
+    <button class="no" onclick="noClicked()">No</button>
+  </div>
+</div>
 
-  <script>
-    function yesClicked() {
-      const chat = document.getElementById("chatBox");
+<audio id="song">
+  <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg">
+</audio>
 
-      const msg = document.createElement("div");
-      msg.className = "message sent";
-      msg.innerHTML = "I love you Puttu 😘<br>Happy Valentine’s Day ❤️";
-      chat.appendChild(msg);
+<script>
+function yesClicked() {
+  const chat = document.getElementById("chatBox");
 
-      document.getElementById("loveSong").play();
-      createHearts();
-    }
+  const msg = document.createElement("div");
+  msg.className = "message sent";
+  msg.innerHTML = "I love you Puttu 😘<br>Happy Valentine’s Day ❤️";
+  chat.appendChild(msg);
 
-    function noClicked() {
-      const chat = document.getElementById("chatBox");
+  document.getElementById("song").play();
+  createHearts();
+}
 
-      const msg = document.createElement("div");
-      msg.className = "message received";
-      msg.innerText = "Nice try 😜 but this option is disabled forever";
-      chat.appendChild(msg);
-    }
+function noClicked() {
+  const chat = document.getElementById("chatBox");
 
-    function createHearts() {
-      const container = document.getElementById("container");
+  const msg = document.createElement("div");
+  msg.className = "message received";
+  msg.innerText = "Nice try 😜 but this option is disabled forever";
+  chat.appendChild(msg);
+}
 
-      for (let i = 0; i < 15; i++) {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerText = "💖";
-        heart.style.left = Math.random() * 280 + "px";
-        container.appendChild(heart);
+function createHearts() {
+  const container = document.getElementById("container");
 
-        setTimeout(() => {
-          heart.remove();
-        }, 4000);
-      }
-    }
-  </script>
+  for (let i = 0; i < 12; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * 280 + "px";
+    container.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 4000);
+  }
+}
+</script>
 
 </body>
 </html>
