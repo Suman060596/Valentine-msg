@@ -40,6 +40,7 @@
             border-radius: 7px;
             margin-bottom: 8px;
             font-size: 14px;
+            white-space: pre-line; /* allows multi-line text */
         }
 
         .received {
@@ -71,9 +72,8 @@
         }
 
         .no {
-            background-color: #ccc;
-            color: #666;
-            pointer-events: none;
+            background-color: #ffb3b3;
+            color: #000;
         }
 
         /* Floating hearts */
@@ -104,7 +104,7 @@
 
     <div class="options">
         <button class="yes" onclick="yesClicked()">Yes ❤️</button>
-        <button class="no">No 💔</button>
+        <button class="no" onclick="noClicked()">No 💔</button>
     </div>
 </div>
 
@@ -119,11 +119,15 @@
 
         const msg = document.createElement("div");
         msg.className = "message sent";
-        msg.innerText = "I love you Puttu 😘❤️";
+        msg.innerText = "I love you Puttu 😘\nHappy Valentine’s Day ❤️";
         chat.appendChild(msg);
 
         document.getElementById("msgSound").play();
         createHearts();
+    }
+
+    function noClicked() {
+        alert("Option disabled 😂");
     }
 
     function createHearts() {
