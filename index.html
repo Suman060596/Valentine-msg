@@ -100,28 +100,37 @@ button {
   </div>
 
   <div class="options">
-    <button class="yes" onclick="yesClicked()">Yes</button>
+    <button class="yes" id="yesBtn" onclick="yesClicked()">Yes</button>
     <button class="no" onclick="noClicked()">No</button>
   </div>
 </div>
 
-<!-- Reliable romantic music -->
-<audio id="loveSong" preload="auto">
-  <source src="https://www.soundjay.com/misc/sounds/magic-chime-02.mp3" type="audio/mpeg">
+<!-- iPhone-safe click sound -->
+<audio id="loveSound" preload="auto">
+  <source src="https://www.soundjay.com/buttons/sounds/button-09.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+let yesAlreadyClicked = false;
+
 function yesClicked() {
+  if (yesAlreadyClicked) return;
+  yesAlreadyClicked = true;
+
   const chat = document.getElementById("chatBox");
+  const yesBtn = document.getElementById("yesBtn");
 
   const msg = document.createElement("div");
   msg.className = "message sent";
   msg.innerHTML = "I love you Puttu 😘<br>Happy Valentine’s Day ❤️";
   chat.appendChild(msg);
 
-  const song = document.getElementById("loveSong");
-  song.currentTime = 0;
-  song.play();
+  yesBtn.disabled = true;
+  yesBtn.style.opacity = "0.6";
+
+  const sound = document.getElementById("loveSound");
+  sound.currentTime = 0;
+  sound.play().catch(() => {});
 
   createHearts();
 }
@@ -133,7 +142,7 @@ function noClicked() {
 function createHearts() {
   const container = document.getElementById("container");
 
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 10; i++) {
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.innerText = "💖";
@@ -147,3 +156,4 @@ function createHearts() {
 
 </body>
 </html>
+
