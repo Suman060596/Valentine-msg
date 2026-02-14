@@ -73,6 +73,7 @@ button {
 .no {
   background: #ccc;
 }
+
 .heart {
   position: absolute;
   bottom: 0;
@@ -104,8 +105,9 @@ button {
   </div>
 </div>
 
-<audio id="song">
-  <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg">
+<!-- Reliable romantic music -->
+<audio id="loveSong" preload="auto">
+  <source src="https://www.soundjay.com/misc/sounds/magic-chime-02.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -117,17 +119,15 @@ function yesClicked() {
   msg.innerHTML = "I love you Puttu 😘<br>Happy Valentine’s Day ❤️";
   chat.appendChild(msg);
 
-  document.getElementById("song").play();
+  const song = document.getElementById("loveSong");
+  song.currentTime = 0;
+  song.play();
+
   createHearts();
 }
 
 function noClicked() {
-  const chat = document.getElementById("chatBox");
-
-  const msg = document.createElement("div");
-  msg.className = "message received";
-  msg.innerText = "Nice try 😜 but this option is disabled forever";
-  chat.appendChild(msg);
+  alert("Nice try 😜 but this option is disabled forever");
 }
 
 function createHearts() {
