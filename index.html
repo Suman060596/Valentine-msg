@@ -1,152 +1,156 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Valentine Chat</title>
+  <title>Valentine Chat</title>
 
-    <style>
-        body {
-            background-color: #e5ddd5;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            padding-top: 40px;
-            overflow: hidden;
-        }
+  <style>
+    body {
+      background-color: #e5ddd5;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding-top: 40px;
+      overflow: hidden;
+    }
 
-        .chat-container {
-            width: 320px;
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            position: relative;
-        }
+    .chat-container {
+      width: 320px;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      position: relative;
+    }
 
-        .header {
-            background-color: #075e54;
-            color: white;
-            padding: 10px;
-            font-weight: bold;
-            text-align: center;
-        }
+    .header {
+      background-color: #075e54;
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+    }
 
-        .chat {
-            padding: 10px;
-        }
+    .chat {
+      padding: 10px;
+      min-height: 200px;
+    }
 
-        .message {
-            max-width: 80%;
-            padding: 8px 12px;
-            border-radius: 7px;
-            margin-bottom: 8px;
-            font-size: 14px;
-            white-space: pre-line; /* allows multi-line text */
-        }
+    .message {
+      max-width: 80%;
+      padding: 8px 12px;
+      border-radius: 7px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
 
-        .received {
-            background-color: white;
-        }
+    .received {
+      background-color: white;
+    }
 
-        .sent {
-            background-color: #dcf8c6;
-            margin-left: auto;
-        }
+    .sent {
+      background-color: #dcf8c6;
+      margin-left: auto;
+    }
 
-        .options {
-            text-align: center;
-            padding: 10px;
-        }
+    .options {
+      text-align: center;
+      padding: 10px;
+    }
 
-        button {
-            padding: 8px 15px;
-            margin: 5px;
-            border-radius: 20px;
-            border: none;
-            font-size: 14px;
-            cursor: pointer;
-        }
+    button {
+      padding: 8px 15px;
+      margin: 5px;
+      border-radius: 20px;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
 
-        .yes {
-            background-color: #25d366;
-            color: white;
-        }
+    .yes {
+      background-color: #25d366;
+      color: white;
+    }
 
-        .no {
-            background-color: #ffb3b3;
-            color: #000;
-        }
+    .no {
+      background-color: #ccc;
+      color: #333;
+    }
 
-        /* Floating hearts */
-        .heart {
-            position: absolute;
-            bottom: 0;
-            font-size: 20px;
-            animation: floatUp 4s linear forwards;
-        }
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      bottom: 0;
+      font-size: 22px;
+      animation: floatUp 4s linear forwards;
+    }
 
-        @keyframes floatUp {
-            0% { opacity: 1; transform: translateY(0); }
-            100% { opacity: 0; transform: translateY(-400px); }
-        }
-    </style>
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-400px); }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="chat-container" id="container">
-    <div class="header">💚 My Love</div>
+  <div class="chat-container" id="container">
+    <div class="header">My Love ❤️</div>
 
     <div class="chat" id="chatBox">
-        <div class="message received">
-            Will you be my Valentine? 💖
-        </div>
+      <div class="message received">
+        Will you be my Valentine? 💌
+      </div>
     </div>
 
     <div class="options">
-        <button class="yes" onclick="yesClicked()">Yes ❤️</button>
-        <button class="no" onclick="noClicked()">No 💔</button>
+      <button class="yes" onclick="yesClicked()">Yes</button>
+      <button class="no" onclick="noClicked()">No</button>
     </div>
-</div>
+  </div>
 
-<!-- Message sound -->
-<audio id="msgSound">
-    <source src="https://www.soundjay.com/button/sounds/button-3.mp3" type="audio/mpeg">
-</audio>
+  <!-- Valentine Song -->
+  <audio id="loveSong">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
 
-<script>
+  <script>
     function yesClicked() {
-        const chat = document.getElementById("chatBox");
+      const chat = document.getElementById("chatBox");
 
-        const msg = document.createElement("div");
-        msg.className = "message sent";
-        msg.innerText = "I love you Puttu 😘\nHappy Valentine’s Day ❤️";
-        chat.appendChild(msg);
+      const msg = document.createElement("div");
+      msg.className = "message sent";
+      msg.innerHTML = "I love you Puttu 😘<br>Happy Valentine’s Day ❤️";
+      chat.appendChild(msg);
 
-        document.getElementById("msgSound").play();
-        createHearts();
+      document.getElementById("loveSong").play();
+      createHearts();
     }
 
     function noClicked() {
-        alert("Option disabled 😂");
+      const chat = document.getElementById("chatBox");
+
+      const msg = document.createElement("div");
+      msg.className = "message received";
+      msg.innerText = "Nice try 😜 but this option is disabled forever";
+      chat.appendChild(msg);
     }
 
     function createHearts() {
-        const container = document.getElementById("container");
+      const container = document.getElementById("container");
 
-        for (let i = 0; i < 15; i++) {
-            const heart = document.createElement("div");
-            heart.className = "heart";
-            heart.innerText = "💖";
-            heart.style.left = Math.random() * 300 + "px";
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "💖";
+        heart.style.left = Math.random() * 280 + "px";
+        container.appendChild(heart);
 
-            container.appendChild(heart);
-
-            setTimeout(() => {
-                heart.remove();
-            }, 4000);
-        }
+        setTimeout(() => {
+          heart.remove();
+        }, 4000);
+      }
     }
-</script>
+  </script>
 
 </body>
 </html>
